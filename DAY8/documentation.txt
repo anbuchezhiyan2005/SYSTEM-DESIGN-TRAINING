@@ -1,0 +1,356 @@
+BOOKMYSHOW LLD CORE DESIGN
+
+I. CORE REQUIREMENTS (4 MINIMAL FEATURES)
+
+1. USER REGISTRATION & LOGIN
+   - User can register with email, password, name, phone
+   - User can login with email & password
+   - Basic authentication validation
+
+2. BOOKING SYSTEM
+   - Browse available movies
+   - Select theatre showing the movie
+   - Select show timing
+   - Choose seats from available seats
+   - Create booking with selected details
+
+3. PAYMENT PROCESSING
+   - Multiple payment strategies (Strategy Pattern)
+     * Credit/Debit Card Payment
+     * UPI Payment
+     * Net Banking Payment
+   - Process payment for booking
+   - Mark booking as confirmed after payment
+
+4. RECEIPT GENERATION
+   - Generate receipt with booking details
+   - Include: Movie name, Theatre, Show time, Seats, Amount paid, Booking ID
+
+
+II. CORE ENTITIES (MODELS)
+
+
+1. USER
+   - userId (Primary Key)
+   - name
+   - email (Unique)
+   - password (hashed)
+   - phoneNumber
+   - createdAt
+
+2. MOVIE
+   - movieId (Primary Key)
+   - title
+   - description
+   - duration (in minutes)
+   - genre
+   - language
+   - releaseDate
+
+3. THEATRE
+   - theatreId (Primary Key)
+   - name
+   - location
+   - city
+   - totalSeats
+
+4. SHOW
+   - showId (Primary Key)
+   - movieId (Foreign Key -> Movie)
+   - theatreId (Foreign Key -> Theatre)
+   - showTime (Date & Time)
+   - price (base price per seat)
+   - availableSeats
+
+5. SEAT
+   - seatId (Primary Key)
+   - showId (Foreign Key -> Show)
+   - seatNumber (e.g., A1, A2, B1)
+   - isAvailable (boolean)
+   - seatType (REGULAR, PREMIUM, VIP)
+
+6. BOOKING
+   - bookingId (Primary Key)
+   - userId (Foreign Key -> User)
+   - showId (Foreign Key -> Show)
+   - bookingDate
+   - totalAmount
+   - paymentStatus (PENDING, COMPLETED, FAILED)
+   - bookingStatus (CONFIRMED, CANCELLED)
+
+7. BOOKING_SEAT (Junction Table)
+   - bookingId (Foreign Key -> Booking)
+   - seatId (Foreign Key -> Seat)
+   - price
+
+8. PAYMENT
+   - paymentId (Primary Key)
+   - bookingId (Foreign Key -> Booking)
+   - amount
+   - paymentMethod (CARD, UPI, NET_BANKING)
+   - paymentStatus (SUCCESS, FAILED)
+   - transactionId
+   - paymentDate
+
+9. RECEIPT
+   - receiptId (Primary Key)
+   - bookingId (Foreign Key -> Booking)
+   - generatedDate
+   - receiptDetails (JSON/Text with all booking info)
+
+
+III. ENUMS
+
+1. PaymentMethod
+   - CARD
+   - UPI
+   - NET_BANKING
+
+2. PaymentStatus
+   - PENDING
+   - SUCCESS
+   - FAILED
+
+3. BookingStatus
+   - CONFIRMED
+   - CANCELLED
+   - PENDING
+
+4. SeatType
+   - REGULAR
+   - PREMIUM
+   - VIP
+
+
+IV. SERVICES (BUSINESS LOGIC)
+
+1. USER_SERVICE
+   Behaviors:
+   - registerUser(name, email, password, phone) -> User
+   - loginUser(email, password) -> User
+   - getUserById(userId) -> User
+   - validateCredentials(email, password) -> boolean
+
+2. MOVIE_SERVICE
+   Behaviors:
+   - getAllMovies() -> List<Movie>
+   - getMovieById(movieId) -> Movie
+   - searchMoviesByTitle(title) -> List<Movie>
+   - getMoviesByGenre(genre) -> List<Movie>
+
+3. THEATRE_SERVICE
+   Behaviors:
+   - getAllTheatres() -> List<Theatre>
+   - getTheatreById(theatreId) -> Theatre
+   - getTheatresByCity(city) -> List<Theatre>
+   - getTheatresByMovie(movieId) -> List<Theatre>
+
+4. SHOW_SERVICE
+   Behaviors:
+   - getShowsByMovie(movieId) -> List<Show>
+   - getShowsByTheatre(theatreId) -> List<Show>
+   - getShowById(showId) -> Show
+   - getAvailableSeatsForShow(showId) -> int
+
+5. SEAT_SERVICE
+   Behaviors:
+   - getSeatsByShow(showId) -> List<Seat>
+   - getAvailableSeats(showId) -> List<Seat>
+   - blockSeats(showId, seatIds) -> boolean
+   - releaseSeats(showId, seatIds) -> boolean
+
+6. BOOKING_SERVICE
+   Behaviors:
+   - createBooking(userId, showId, seatIds) -> Booking
+   - confirmBooking(bookingId) -> Booking
+   - cancelBooking(bookingId) -> boolean
+   - getBookingById(bookingId) -> Booking
+   - getUserBookings(userId) -> List<Booking>
+   - calculateTotalAmount(showId, seatIds) -> double
+
+7. PAYMENT_SERVICE
+   Behaviors:
+   - processPayment(bookingId, amount, paymentStrategy) -> Payment
+   - getPaymentByBooking(bookingId) -> Payment
+   - validatePayment(paymentId) -> boolean
+
+8. RECEIPT_SERVICE
+   Behaviors:
+   - generateReceipt(bookingId) -> Receipt
+   - getReceiptByBooking(bookingId) -> Receipt
+   - printReceipt(receiptId) -> String
+
+
+V. PAYMENT STRATEGY PATTERN
+
+INTERFACE: PaymentStrategy
+   - processPayment(amount, bookingId) -> boolean
+
+IMPLEMENTATIONS:
+1. CardPaymentStrategy
+   - cardNumber, cvv, expiryDate
+   - processPayment() -> validates card & processes
+
+2. UpiPaymentStrategy
+   - upiId
+   - processPayment() -> validates UPI & processes
+
+3. NetBankingStrategy
+   - bankName, accountNumber
+   - processPayment() -> validates bank & processes
+
+
+VI. REPOSITORIES (DATABASE LAYER)
+
+Each entity will have a repository interface and implementation:
+
+1. UserRepository
+   - save(User) -> User
+   - findById(userId) -> User
+   - findByEmail(email) -> User
+   - existsByEmail(email) -> boolean
+
+2. MovieRepository
+   - save(Movie) -> Movie
+   - findById(movieId) -> Movie
+   - findAll() -> List<Movie>
+   - findByTitle(title) -> List<Movie>
+
+3. TheatreRepository
+   - save(Theatre) -> Theatre
+   - findById(theatreId) -> Theatre
+   - findAll() -> List<Theatre>
+   - findByCity(city) -> List<Theatre>
+
+4. ShowRepository
+   - save(Show) -> Show
+   - findById(showId) -> Show
+   - findByMovieId(movieId) -> List<Show>
+   - findByTheatreId(theatreId) -> List<Show>
+
+5. SeatRepository
+   - save(Seat) -> Seat
+   - findById(seatId) -> Seat
+   - findByShowId(showId) -> List<Seat>
+   - updateAvailability(seatId, isAvailable) -> boolean
+
+6. BookingRepository
+   - save(Booking) -> Booking
+   - findById(bookingId) -> Booking
+   - findByUserId(userId) -> List<Booking>
+   - updateBookingStatus(bookingId, status) -> boolean
+
+7. PaymentRepository
+   - save(Payment) -> Payment
+   - findById(paymentId) -> Payment
+   - findByBookingId(bookingId) -> Payment
+
+8. ReceiptRepository
+   - save(Receipt) -> Receipt
+   - findById(receiptId) -> Receipt
+   - findByBookingId(bookingId) -> Receipt
+
+
+VII. WORKFLOW / USER JOURNEY
+
+1. USER REGISTRATION & LOGIN
+   User -> UserService.registerUser() -> UserRepository.save()
+   User -> UserService.loginUser() -> UserRepository.findByEmail() -> validate
+
+2. BROWSING MOVIES
+   User -> MovieService.getAllMovies() -> MovieRepository.findAll()
+   User -> TheatreService.getTheatresByMovie() -> TheatreRepository + ShowRepository
+
+3. SELECTING SHOW & SEATS
+   User selects Movie -> User selects Theatre -> User selects Show
+   User -> ShowService.getShowById()
+   User -> SeatService.getAvailableSeats() -> SeatRepository.findByShowId()
+   User selects Seats -> SeatService.blockSeats() (temporary hold)
+
+4. CREATING BOOKING
+   User -> BookingService.createBooking()
+        -> Calculate total amount
+        -> Create Booking (PENDING status)
+        -> BookingRepository.save()
+
+5. PAYMENT PROCESSING
+   User selects payment method -> Creates PaymentStrategy
+   User -> PaymentService.processPayment(bookingId, amount, strategy)
+        -> strategy.processPayment()
+        -> PaymentRepository.save()
+        -> If success: BookingService.confirmBooking() & update seats
+        -> If failed: Release seats
+
+6. RECEIPT GENERATION
+   User -> ReceiptService.generateReceipt(bookingId)
+        -> Fetch booking, show, movie, theatre, seats, payment details
+        -> Format receipt with all details
+        -> ReceiptRepository.save()
+        -> Return receipt to user
+
+
+VIII. DATABASE SCHEMA NOTES
+
+Relationships:
+- User (1) -> (M) Booking
+- Movie (1) -> (M) Show
+- Theatre (1) -> (M) Show
+- Show (1) -> (M) Seat
+- Show (1) -> (M) Booking
+- Booking (1) -> (M) BookingSeat (M) -> (1) Seat
+- Booking (1) -> (1) Payment
+- Booking (1) -> (1) Receipt
+
+Indexes Required:
+- User.email (unique)
+- Show.movieId, Show.theatreId
+- Seat.showId
+- Booking.userId
+- Payment.bookingId
+
+
+IX. IMPLEMENTATION PLAN
+
+STEP 1: Create Enums
+   - PaymentMethod, PaymentStatus, BookingStatus, SeatType
+
+STEP 2: Create Models/Entities
+   - User, Movie, Theatre, Show, Seat, Booking, BookingSeat, Payment, Receipt
+
+STEP 3: Create Repository Interfaces
+   - All repository interfaces with method signatures
+
+STEP 4: Create Repository Implementations (In-Memory for now)
+   - Use HashMap/ArrayList to simulate database
+   - Can be replaced with actual DB later
+
+STEP 5: Create Payment Strategy Pattern
+   - PaymentStrategy interface
+   - CardPaymentStrategy, UpiPaymentStrategy, NetBankingStrategy
+
+STEP 6: Create Services
+   - Implement all services with business logic
+   - Wire repositories into services
+
+STEP 7: Create Main Application
+   - BookMyShowApp.java (console-based demo)
+   - Demonstrate complete flow from registration to receipt
+
+STEP 8: Testing
+   - Test each workflow end-to-end
+
+
+X. SIMPLIFIED ARCHITECTURE
+
+Layers:
+1. Models (Entities) - Plain Java objects with getters/setters
+2. Enums - Simple enumerations
+3. Strategy - Payment strategy pattern
+4. Repositories - Data access layer (in-memory initially)
+5. Services - Business logic layer
+6. Application - Main entry point with demo flow
+
+Dependencies Flow:
+Application -> Services -> Repositories
+Services -> Strategy (for payments)
+All layers -> Models & Enums

@@ -1,0 +1,120 @@
+TAXI BOOKING SYSTEM:
+
+Entities: Customer class, Driver class, Ride class
+
+1. CustomerBookingLogic:
+   -> Handles assigning drivers according to user location
+   -> choosing the type of car (sedan, suv etc.)
+2. CabTrackingService:
+   -> Tracking real-time location of cab (if waiting for pickup or during travel)
+3. PaymentService:
+   -> Payment through different services (gpay, Paytm etc.)
+4. RatingService:
+   -> Rating drivers and giving feedback based on the ride. 
+
+
+BANK ACCOUNT CLASS:
+ENCAPSULATION:
+
+public class BankAccount {
+   private String AccountNumber;
+   private String AccountName;
+   private Double Balance;
+   
+   public BankAccount(String AccountNumber,String AccountName,Double Balance) {
+      this.AccountNumber = AccountNumber;
+      this.AccountName = AccountName;
+      this.Balance = Balance;
+   }
+  
+   public void Deposit(Double amt, String AccountNumber) {
+      if(AccountNumber == this.AccountNumber) {
+         balance += amt;
+         system.out.println("Deposit successful");
+      }
+      else {
+        system.out.println("Invalid account");
+      }
+   }
+
+   public void withdraw(Double amt, String AccountNumber) {
+      if(AccountNumber == this.AccountNumber) {
+         if(balance >= amt) {
+            balance -= amt;
+            system.out.println("Withdraw successful");
+         } else {
+           system.out.println("Insufficient balance!");
+      }
+      else {
+        system.out.println("Invalid Account Number");
+      }
+   }
+
+   public void CheckBalance(String AccountNumber, Double Balance) {
+      if(AccountNumber == this.AccountNumber) {
+         system.out.println("Balance is: " + Balance);
+      }
+      else {
+        system.out.println("Invalid account");
+      }
+  }
+
+};
+
+ABSTRACTION: 
+
+interface helper {
+   public void calculateArea();
+}
+
+public class Circle implements helper {
+  public int radius = 10;
+  public void calculateArea() {
+    System.out.println("area is: " + 3.14 * radius * radius);
+  }
+}
+
+public class Square implements helper {
+   public int side = 10;
+   public void calculateArea() {
+     System.out.println("area is: " + side * side);
+   }
+}
+
+INHERITANCE: 
+
+public class NOtificationService {
+   public void notify() {
+     System.out.println("Sending notification!");
+   }
+}
+
+public class EmailNotification extends NotificationService {
+  public void notify() {
+    System.out.println("sending email notification!");
+  }
+}
+
+public class SMSNotification extends NotificationService {
+  public void notify() {
+    System.out.println("sending SMS notification!");
+  }
+}
+
+POLYMORPHISM:
+
+public class ShapeArea {
+  public int calc(int side) {
+    return side * side;
+  }
+  
+  public int calc(int radius) {
+    return 3.14 * radius * radius;
+  }
+
+  public int calc(int l, int b) {
+    return l * b;
+  }
+}
+
+   

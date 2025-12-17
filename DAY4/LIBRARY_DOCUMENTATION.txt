@@ -1,0 +1,62 @@
+LIBRARY BOOK BORROWING SYSTEM - LOW-LEVEL DESIGN
+
+1. REQUIREMENTS
+
+FUNCTIONAL:
+- Add books to library
+- Add copies of books
+- Register members
+- Member borrow book (max 5 active)
+- Member return book
+- Calculate fine (5 rupees per day late)
+- View book availability
+- View member borrow history
+
+NON-FUNCTIONAL:
+- No database (in-memory only)
+- No concurrency
+- No authentication
+- Simple code
+
+2. ENTITIES
+
+BOOK:
+- id: unique identifier
+- name: book title
+- author: author name
+
+BOOKCOPY:
+- cid: copy id
+- b: reference to book
+- s: status (AVAILABLE or BORROWED)
+
+MEMBER:
+- mid: member id
+- nm: member name
+- hist: list of borrow records
+- getActive(): returns count of active borrows
+
+BORROWRECORD:
+- rid: record id
+- m: reference to member
+- bc: reference to book copy
+- bd: borrow date
+- dd: due date (14 days from borrow)
+- rd: return date
+- st: status (ACTIVE or RETURNED)
+- fn: fine amount
+
+3. CLASS RELATIONSHIPS
+
+Book (1:many) BookCopy
+- One book can have multiple copies
+- Each copy belongs to one book
+
+Member (1:many) BorrowRecord
+- One member can borrow multiple books
+- Each borrow record is for one member
+
+Book (many:many) Member (via BorrowRecord)
+- Many members can borrow same book (different copies)
+- One member can borrow many books
+

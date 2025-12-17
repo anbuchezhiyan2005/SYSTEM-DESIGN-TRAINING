@@ -1,0 +1,90 @@
+WHATSAPP CORE LLD DESIGN
+
+I. IDENTIFYING REQUIREMENTS
+
+    - user can add/update/delete contacts to their phone 
+    - user can chat with the other users 
+    - user can create/join a group containing multiple users 
+    - user can update their description/status/DP in the settings
+    - user can manage a group by adding or removing members
+    - user can give access to various members in the group (admin access)
+    - user can voice call or video call to other users
+    - user can archive chats and groups
+    - user can mute chats and groups
+    - user can view past calls
+    
+II. IDENTIFYING ENTITIES:
+
+    - User class: userID, userName, userMobileNumber, userDescription, userStatus, userProfilePictureUrl, userContactList, userGroupList, lastSeen, onlineStatus
+    - Contact class: contactID, contactMobileNumber, contactFirstName, contactLastName, contactRegion, contactLabel, linkedUserId (optional), isBlocked
+    - Message class: messageID, messageContent, sender, receiver, messageTime, messageType (text/image/video/file), messageStatus (sent/delivered/read), isDeleted, mediaUrl
+    - Group class: groupID, groupName, groupDescription, groupMembersRoleMap (user -> role), createdBy, createdAt, groupIconUrl
+    - Call class: callID, caller, receiver, callType (voice/video), callStatus (missed/rejected/completed/ongoing), callStartTime, callEndTime, callDuration
+    - GroupConversation class: groupID, groupMessagesList, createdAt, lastMessage
+    - ChatConversation class: chatID, user1, user2, chatMessagesList, createdAt, lastMessage, userSettings (muted/archived/pinned per user)
+    - Notification class: notificationID, notificationType, notificationDescription, notificationSender, notificationDateAndTime, isRead, readAt, relatedEntityId
+
+     ENUMS (basic set):
+
+    - MessageType: TEXT, IMAGE, VIDEO, FILE
+    - MessageStatus: SENT, DELIVERED, READ
+    - CallType: VOICE, VIDEO
+    - CallStatus: ONGOING, COMPLETED, MISSED, REJECTED
+    - UserRole: ADMIN, MEMBER
+    - NotificationType: NEW_MESSAGE, CALL, GROUP_UPDATE
+    - OnlineStatus: ONLINE, OFFLINE
+
+
+IV. MAPPING RELATIONSHIPS:
+    1. User — Contact
+        - Type: 1-to-many
+        - a user stores many personal contacts; each contact entry belongs to one user
+        - a contact may or may not be a registered user
+
+    2. User — Group (membership)
+        - Type: many-to-many
+        - a user can join many groups and each group has many users
+        - Store on membership: role (admin/member), when joined, who added them, isMuted, isArchived
+
+    3. Group — GroupConversation
+        - Type: 1-to-1 (strong ownership)
+        - each group has its own conversation thread
+
+    4. ChatConversation — User
+        - Type: exactly 2 users per chat
+        - a direct chat is between two distinct users; each user can have many chats
+        - Per-user settings: muted, archived, pinned
+
+    5. GroupConversation — Message
+        - Type: 1-to-many
+        - a group thread holds many messages; each message belongs to that group thread
+        - Rule: sender must be a member of the group
+
+    6. ChatConversation — Message
+        - Type: 1-to-many
+        - a direct chat holds many messages; each message belongs to that chat
+        - Rule: sender must be one of the two chat users
+
+    7. Message — User (sender)
+        - Type: many-to-1
+        - one user can send many messages; each message has one sender
+
+    8. Message — User (receivers)
+        - Type: many-to-many (track per-recipient status)
+        - group messages go to many users; users receive many messages
+        - Store per recipient: delivery/read status with timestamps
+
+    9. Call — User
+        - Type: exactly 2 users per call; each user can have many calls over time
+        - a call always has one caller and one receiver
+
+    10. Notification — User
+        - Type: many-to-many
+        - one notification can go to many users; a user gets many notifications
+        - Store per user: isRead flag and read time
+
+
+
+
+
+

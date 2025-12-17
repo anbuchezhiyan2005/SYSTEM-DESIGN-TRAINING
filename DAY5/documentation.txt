@@ -1,0 +1,21 @@
+SPLITWISE LLD DESIGN
+
+I. IDENTIFYING REQUIREMENTS:
+
+- Onboarding users into a common group (adding friends, creating room (CRUD))
+- Users scan QR code to get bill, or enter the bill manually
+- Splitting bill among users (unequal parts, percentge, parts/shares)
+- User pays through a payment service on behalf of a group
+- The remaining debt for each other user to be displayed in the group
+- Other users should be able to pay up their remaining debts to the person they are indebted to.
+- Users can track individual expenses as well.
+
+II. IDENTIFYING ENTITIES:
+
+- User class: userName, userAccountNumber, userBalance, userFriends
+- Group class: groupName, groupDescription, groupAdmin, groupTotalExpense, groupMembers
+- Expense class: userName, expenseName, totalExpenseAmount, previousTransactionsList, totalDebtAmount, listOfDebts
+- Bill class: billID, billDescription, purchaseList, billAmount
+- Debt class: debtID, lender(User), debtAmount, timeElapsed
+- Transaction class: transactionID, sender, reciever, transactionAmount, transactionDateTime
+
