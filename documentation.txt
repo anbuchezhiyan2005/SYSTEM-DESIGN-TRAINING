@@ -9,9 +9,6 @@ I. IDENTIFYING REQUIREMENTS
     - user can manage a group by adding or removing members
     - user can give access to various members in the group (admin access)
     - user can voice call or video call to other users
-    - user can archive chats and groups
-    - user can mute chats and groups
-    - user can view past calls
     
 II. IDENTIFYING ENTITIES:
 
