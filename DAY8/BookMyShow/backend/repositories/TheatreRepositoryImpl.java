@@ -1,7 +1,7 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.Theatre;
-import DAY8.BookMyShow.backend.config.MongoDBConnectionManager;
+import models.Theatre;
+import config.MongoDBConnectionManager;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;

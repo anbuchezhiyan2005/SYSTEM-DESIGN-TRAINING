@@ -1,10 +1,10 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.Payment;
-import DAY8.BookMyShow.backend.enums.PaymentMethod;
-import DAY8.BookMyShow.backend.enums.PaymentStatus;
-import DAY8.BookMyShow.backend.config.MongoDBConnectionManager;
-import DAY8.BookMyShow.backend.utils.DocumentMapperUtil;
+import models.Payment;
+import enums.PaymentMethod;
+import enums.PaymentStatus;
+import config.MongoDBConnectionManager;
+import utils.DocumentMapperUtil;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;

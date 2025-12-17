@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.enums;
+package enums;
 
 public enum PaymentStatus {
     PENDING,

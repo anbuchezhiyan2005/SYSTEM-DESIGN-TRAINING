@@ -1,6 +1,6 @@
-package DAY8.BookMyShow.backend.models;
+package models;
 
-import DAY8.BookMyShow.backend.enums.SeatType;
+import enums.SeatType;
 
 public class Seat {
     private String seatId;

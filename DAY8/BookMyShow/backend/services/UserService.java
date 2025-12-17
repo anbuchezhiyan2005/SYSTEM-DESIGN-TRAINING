@@ -1,7 +1,7 @@
-package DAY8.BookMyShow.backend.services;
+package services;
 
-import DAY8.BookMyShow.backend.models.User;
-import DAY8.BookMyShow.backend.repositories.UserRepository;
+import models.User;
+import repositories.UserRepository;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.models;
+package models;
 
 public class Theatre {
     private String theatreId;

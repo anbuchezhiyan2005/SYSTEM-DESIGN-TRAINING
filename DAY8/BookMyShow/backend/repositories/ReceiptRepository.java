@@ -1,6 +1,6 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.Receipt;
+import models.Receipt;
 
 public interface ReceiptRepository {
     Receipt save(Receipt receipt);

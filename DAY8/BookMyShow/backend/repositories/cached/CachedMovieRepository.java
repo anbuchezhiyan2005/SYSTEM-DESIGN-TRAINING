@@ -1,9 +1,9 @@
-package DAY8.BookMyShow.backend.repositories.cached;
+package repositories.cached;
 
-import DAY8.BookMyShow.backend.models.Movie;
-import DAY8.BookMyShow.backend.repositories.MovieRepository;
-import DAY8.BookMyShow.backend.cache.InMemoryCache;
-import DAY8.BookMyShow.backend.cache.CacheConfig;
+import models.Movie;
+import repositories.MovieRepository;
+import cache.InMemoryCache;
+import cache.CacheConfig;
 
 import java.util.List;
 

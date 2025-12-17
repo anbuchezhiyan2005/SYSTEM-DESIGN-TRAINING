@@ -1,9 +1,9 @@
-package DAY8.BookMyShow.backend.services;
+package services;
 
-import DAY8.BookMyShow.backend.models.Theatre;
-import DAY8.BookMyShow.backend.models.Show;
-import DAY8.BookMyShow.backend.repositories.TheatreRepository;
-import DAY8.BookMyShow.backend.repositories.ShowRepository;
+import models.Theatre;
+import models.Show;
+import repositories.TheatreRepository;
+import repositories.ShowRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

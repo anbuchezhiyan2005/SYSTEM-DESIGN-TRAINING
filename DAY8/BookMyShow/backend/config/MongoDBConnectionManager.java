@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.config;
+package config;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;

@@ -1,7 +1,7 @@
-package DAY8.BookMyShow.backend.models;
+package models;
 
-import DAY8.BookMyShow.backend.enums.BookingStatus;
-import DAY8.BookMyShow.backend.enums.PaymentStatus;
+import enums.BookingStatus;
+import enums.PaymentStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

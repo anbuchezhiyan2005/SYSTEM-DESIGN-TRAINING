@@ -1,7 +1,7 @@
-package DAY8.BookMyShow.backend.services;
+package services;
 
-import DAY8.BookMyShow.backend.models.*;
-import DAY8.BookMyShow.backend.repositories.*;
+import models.*;
+import repositories.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;

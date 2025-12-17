@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.cache;
+package cache;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

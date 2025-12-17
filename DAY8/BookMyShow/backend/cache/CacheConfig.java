@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.cache;
+package cache;
 
 public class CacheConfig {
     // TTL in milliseconds

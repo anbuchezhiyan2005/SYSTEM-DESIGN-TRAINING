@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.config;
+package config;
 
 import java.io.FileInputStream;
 import java.io.IOException;

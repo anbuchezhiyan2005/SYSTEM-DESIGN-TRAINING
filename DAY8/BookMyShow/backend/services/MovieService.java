@@ -1,7 +1,7 @@
-package DAY8.BookMyShow.backend.services;
+package services;
 
-import DAY8.BookMyShow.backend.models.Movie;
-import DAY8.BookMyShow.backend.repositories.MovieRepository;
+import models.Movie;
+import repositories.MovieRepository;
 
 import java.util.List;
 

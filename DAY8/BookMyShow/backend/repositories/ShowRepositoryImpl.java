@@ -1,8 +1,8 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.Show;
-import DAY8.BookMyShow.backend.config.MongoDBConnectionManager;
-import DAY8.BookMyShow.backend.utils.DocumentMapperUtil;
+import models.Show;
+import config.MongoDBConnectionManager;
+import utils.DocumentMapperUtil;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;

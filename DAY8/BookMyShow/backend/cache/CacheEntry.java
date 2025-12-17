@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.cache;
+package cache;
 
 public class CacheEntry<T> {
     private T value;

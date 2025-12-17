@@ -1,7 +1,7 @@
-package DAY8.BookMyShow.backend.services;
+package services;
 
-import DAY8.BookMyShow.backend.models.Seat;
-import DAY8.BookMyShow.backend.repositories.SeatRepository;
+import models.Seat;
+import repositories.SeatRepository;
 
 import java.util.List;
 

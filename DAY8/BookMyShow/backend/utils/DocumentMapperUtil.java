@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.utils;
+package utils;
 
 import java.time.Instant;
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.Theatre;
+import models.Theatre;
 import java.util.List;
 
 public interface TheatreRepository {

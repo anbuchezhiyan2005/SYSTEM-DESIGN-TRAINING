@@ -1,8 +1,8 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.Booking;
-import DAY8.BookMyShow.backend.enums.BookingStatus;
-import DAY8.BookMyShow.backend.enums.PaymentStatus;
+import models.Booking;
+import enums.BookingStatus;
+import enums.PaymentStatus;
 
 import java.util.List;
 

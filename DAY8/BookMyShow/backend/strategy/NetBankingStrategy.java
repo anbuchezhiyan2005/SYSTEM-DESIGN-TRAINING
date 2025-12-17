@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.strategy;
+package strategy;
 
 public class NetBankingStrategy implements PaymentStrategy {
     private String bankName;

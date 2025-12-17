@@ -1,13 +1,13 @@
-package DAY8.BookMyShow.backend.app;
+package app;
 
-import DAY8.BookMyShow.backend.config.MongoDBConnectionManager;
-import DAY8.BookMyShow.backend.models.*;
-import DAY8.BookMyShow.backend.enums.SeatType;
-import DAY8.BookMyShow.backend.repositories.*;
-import DAY8.BookMyShow.backend.repositories.cached.*;
-import DAY8.BookMyShow.backend.cache.InMemoryCache;
-import DAY8.BookMyShow.backend.services.*;
-import DAY8.BookMyShow.backend.strategy.UpiPaymentStrategy;
+import config.MongoDBConnectionManager;
+import models.*;
+import enums.SeatType;
+import repositories.*;
+import repositories.cached.*;
+import cache.InMemoryCache;
+import services.*;
+import strategy.UpiPaymentStrategy;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,6 +39,7 @@ public class BookMyShowApp {
         ShowRepository baseShowRepo = new ShowRepositoryImpl();
         
         // Wrap with Cached Repositories
+
         MovieRepository movieRepository = new CachedMovieRepository(baseMovieRepo, cache);
         TheatreRepository theatreRepository = new CachedTheatreRepository(baseTheatreRepo, cache);
         ShowRepository showRepository = new CachedShowRepository(baseShowRepo, cache);

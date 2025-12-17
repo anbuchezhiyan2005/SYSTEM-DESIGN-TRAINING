@@ -1,6 +1,6 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.Payment;
+import models.Payment;
 
 public interface PaymentRepository {
     Payment save(Payment payment);

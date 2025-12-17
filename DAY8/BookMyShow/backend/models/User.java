@@ -1,4 +1,4 @@
-package DAY8.BookMyShow.backend.models;
+package models;
 
 import java.time.LocalDateTime;
 

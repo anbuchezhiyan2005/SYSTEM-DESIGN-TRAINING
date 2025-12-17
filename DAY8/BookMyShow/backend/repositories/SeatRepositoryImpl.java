@@ -1,8 +1,8 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.Seat;
-import DAY8.BookMyShow.backend.enums.SeatType;
-import DAY8.BookMyShow.backend.config.MongoDBConnectionManager;
+import models.Seat;
+import enums.SeatType;
+import config.MongoDBConnectionManager;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;

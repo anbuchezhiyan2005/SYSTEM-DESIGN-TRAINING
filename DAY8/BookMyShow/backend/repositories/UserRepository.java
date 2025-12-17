@@ -1,6 +1,6 @@
-package DAY8.BookMyShow.backend.repositories;
+package repositories;
 
-import DAY8.BookMyShow.backend.models.User;
+import models.User;
 
 public interface UserRepository {
     User save(User user);

@@ -1,12 +1,12 @@
-package DAY8.BookMyShow.backend.services;
+package services;
 
-import DAY8.BookMyShow.backend.models.Payment;
-import DAY8.BookMyShow.backend.models.Booking;
-import DAY8.BookMyShow.backend.enums.PaymentMethod;
-import DAY8.BookMyShow.backend.enums.PaymentStatus;
-import DAY8.BookMyShow.backend.repositories.PaymentRepository;
-import DAY8.BookMyShow.backend.repositories.BookingRepository;
-import DAY8.BookMyShow.backend.strategy.PaymentStrategy;
+import models.Payment;
+import models.Booking;
+import enums.PaymentMethod;
+import enums.PaymentStatus;
+import repositories.PaymentRepository;
+import repositories.BookingRepository;
+import strategy.PaymentStrategy;
 
 import java.util.UUID;
 
